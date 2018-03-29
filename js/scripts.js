@@ -1,18 +1,45 @@
-var toBePinged = [];
+function validateNumber() {
+  for (var i = 0; i <= 2; i++) {
+    var thisChar = parseInt(valueEntered[i]);
+    if (isNaN(thisChar)) {
+      alert("Please enter numbers only.");
+      return false;
+    }
+  }
+}
+
+
+var numbersToBePingponged = [];
 
 function pingPong (number){
-   for (var index = 1; index <= number; index+=1){
-       if(index % 15 === 0){
-           toBePinged.push("pingpong");
-       }
-       else if(index % 5 === 0){
-           toBePinged.push("pong");
-       }
-       else if(index % 3 === 0){
-           toBePinged.push("ping");
-       }
-       else{
-           toBePinged.push(index);
-       }
-   }
+    for (var index = 1; index <= number; index+=1){
+        if(index % 15 === 0){
+            numbersToBePingponged.push("pingpong");
+        }
+        else if(index % 5 === 0){
+            numbersToBePingponged.push("pong");
+        }
+        else if(index % 3 === 0){
+            numbersToBePingponged.push("ping");
+        }
+        else{
+            numbersToBePingponged.push(index);
+        }
+    }
 }
+
+
+//user interface logic
+
+$(document).ready(function(){
+   $("form#ping-pong").submit(function(){
+      event.preventDefault();
+      var number = parseInt($("input#number").val());
+
+      pingPong(number);
+
+      numbersToBePingponged.forEach(function(number){
+         $("#output").append('<li>' + number + '</li>');
+      });
+   });
+});
